@@ -26,17 +26,25 @@ public class EnigmaFrame extends JFrame {
         middle = new JComboBox<>(num);
         outer = new JComboBox<>(num);
         output.setEditable(false);
+
+        JPanel rotorPanel = new JPanel(new FlowLayout());
+        rotorPanel.add(new JLabel("Inner"));
+        rotorPanel.add(inner);
+        rotorPanel.add(new JLabel("Middle"));
+        rotorPanel.add(middle);
+        rotorPanel.add(new JLabel("Out"));
+        rotorPanel.add(outer);
+        rotorPanel.add(new JLabel("Initial Positions"));
+        rotorPanel.add(intPos);
+        rotorPanel.add(encrypt);
+        rotorPanel.add(decrypt);
+
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.add(new JLabel("Input"), BorderLayout.NORTH);
+
+        JPanel outputPanel = new JPanel(new BorderLayout());
+        outputPanel.add(new JLabel("Output"), BorderLayout.NORTH);
+        
     }
 
 }
-
-/*
-public static void main(String args[]) {
-        JFrame f = new JFrame();
-        f.setTitle("GUI Enigma"); // sets title that appears on the top bar
-        f.setSize(700, 500);          // sets the size (in pixels) of the frame
-        f.setLocation(100, 100);      // sets the top-left corner of the window on the desktop
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // makes it so that closing window exits program
-        f.setVisible(true);
-}
-*/
