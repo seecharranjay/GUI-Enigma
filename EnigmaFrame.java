@@ -44,6 +44,21 @@ public class EnigmaFrame extends JFrame {
 
         JPanel outputPanel = new JPanel(new BorderLayout());
         outputPanel.add(new JLabel("Output"), BorderLayout.NORTH);
+
+        ConverterActionListener a = new EnigmaActionListener();
+
+        encrypt.addActionListener(a); 
+        decrypt.addActionListener(a);
+
+        this.add(rotorPanel);
+        this.add(inputPanel);
+        this.add(outputPanel);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.pack();
+        
+    }
+
+    private class EnigmaActionListener implements ActionListener {
         
     }
 
