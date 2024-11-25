@@ -59,7 +59,42 @@ public class EnigmaFrame extends JFrame {
     }
 
     private class EnigmaActionListener implements ActionListener {
-        
+        public void actionPerformed(ActionEvent e) {
+        boolean isEncrypt = e.getSource() == encryptButton;
+
+        try {
+
+            int innerId = innerRotor.getSelectedIndex() + 1;
+            int middleId = middleRotor.getSelectedIndex() + 1;
+            int outerId = outerRotor.getSelectedIndex() + 1;
+
+            String positions = initialPositions.getText().toUpperCase();
+            if (positions.length() != 3 || !positions.matches("[A-Z]{3}")) {
+                outputText.setText("Error!");
+                return;
+            }
+
+            String input = inputText.getText().toUpperCase();
+            if (input.isEmpty()) {
+                outputText.setText("Error!");
+                return;
+            }
+
+            Enigma enigma = new Enigma(innerId, middleId, outerId, positions);
+
+            String output;
+            if (isEncrypt) {
+                output = enigma.encrypt(input);
+            } else {
+                output = enigma.decrypt(input);
+            }
+
+            outputText.setText(output);
+        } catch (Exception ex) {
+            outputText.setText("Error: " + ex.getMessage());
+        }
     }
+    }
+    
 
 }
