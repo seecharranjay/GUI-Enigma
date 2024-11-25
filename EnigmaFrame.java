@@ -35,7 +35,7 @@ public class EnigmaFrame extends JFrame {
         rotorPanel.add(new JLabel("Out"));
         rotorPanel.add(outer);
         rotorPanel.add(new JLabel("Initial Positions"));
-        rotorPanel.add(intPos);
+        rotorPanel.add(intPosition);
         rotorPanel.add(encrypt);
         rotorPanel.add(decrypt);
 
@@ -45,7 +45,7 @@ public class EnigmaFrame extends JFrame {
         JPanel outputPanel = new JPanel(new BorderLayout());
         outputPanel.add(new JLabel("Output"), BorderLayout.NORTH);
 
-        ConverterActionListener a = new EnigmaActionListener();
+        EnigmaActionListener a = new EnigmaActionListener();
 
         encrypt.addActionListener(a); 
         decrypt.addActionListener(a);
@@ -60,40 +60,45 @@ public class EnigmaFrame extends JFrame {
 
     private class EnigmaActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        boolean isEncrypt = e.getSource() == encryptButton;
+            boolean isEncrypt = e.getSource() == encrypt;
 
-        try {
+            try {
 
-            int innerId = innerRotor.getSelectedIndex() + 1;
-            int middleId = middleRotor.getSelectedIndex() + 1;
-            int outerId = outerRotor.getSelectedIndex() + 1;
+                int innerId = inner.getSelectedIndex() + 1;
+                int middleId = middle.getSelectedIndex() + 1;
+                int outerId = outer.getSelectedIndex() + 1;
 
-            String positions = initialPositions.getText().toUpperCase();
-            if (positions.length() != 3 || !positions.matches("[A-Z]{3}")) {
-                outputText.setText("Error!");
-                return;
+                String positions = intPosition.getText().toUpperCase();
+                if (positions.length() != 3 || !positions.matches("[A-Z]{3}")) {
+                    output.setText("Error!");
+                    return;
+                }
+
+                String inputText = input.getText().toUpperCase();
+                if (inputText.isEmpty()) {
+                    output.setText("Error!");
+                    return;
+                }
+
+                Enigma enigma = new Enigma(innerId, middleId, outerId, positions);
+
+                String result;
+                if (isEncrypt) {
+                    result = enigma.encrypt(inputText);
+                } else {
+                    result = enigma.decrypt(inputText);
+                }
+
+                output.setText(result);
+            } catch (Exception ex) {
+                output.setText("Error: " + ex.getMessage());
             }
-
-            String input = inputText.getText().toUpperCase();
-            if (input.isEmpty()) {
-                outputText.setText("Error!");
-                return;
-            }
-
-            Enigma enigma = new Enigma(innerId, middleId, outerId, positions);
-
-            String output;
-            if (isEncrypt) {
-                output = enigma.encrypt(input);
-            } else {
-                output = enigma.decrypt(input);
-            }
-
-            outputText.setText(output);
-        } catch (Exception ex) {
-            outputText.setText("Error: " + ex.getMessage());
         }
     }
+
+    public static void main(String[] args) {
+        EnigmaFrame j = new EnigmaFrame();
+        j.setVisible(true);
     }
     
 
