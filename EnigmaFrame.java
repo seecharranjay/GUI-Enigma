@@ -9,8 +9,24 @@ public class EnigmaFrame extends JFrame {
     private JComboBox<String> inner;
     private JComboBox<String> middle;
     private JComboBox<String> outer;
+    private JButton encrypt;
+    private JButton decrypt;
 
-    private  JButton bEast = new JButton("EAST");
+    private final String[] num = {
+        "1", "2", "3", "4", "5"
+    };
+
+    public EnigmaFrame() {
+        super(); //idk what goes in parenthesis yet
+
+        intPosition = new JTextField("AAA", 5);
+        input = new JTextArea(5, 30);
+        output = new JTextArea(5, 30);
+        inner = new JComboBox<>(num);
+        middle = new JComboBox<>(num);
+        outer = new JComboBox<>(num);
+        output.setEditable(false);
+    }
 
 }
 
