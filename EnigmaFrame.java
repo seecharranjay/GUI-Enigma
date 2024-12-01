@@ -17,7 +17,7 @@ public class EnigmaFrame extends JFrame {
     };
 
     public EnigmaFrame() {
-        super(); //idk what goes in parenthesis yet
+        super("Enigma"); 
 
         intPosition = new JTextField("AAA", 5);
         input = new JTextArea(5, 30);
@@ -25,6 +25,8 @@ public class EnigmaFrame extends JFrame {
         inner = new JComboBox<>(num);
         middle = new JComboBox<>(num);
         outer = new JComboBox<>(num);
+        encrypt = new JButton("Encrypt");  
+        decrypt = new JButton("Decrypt"); 
         output.setEditable(false);
 
         JPanel rotorPanel = new JPanel(new FlowLayout());
@@ -38,21 +40,55 @@ public class EnigmaFrame extends JFrame {
         rotorPanel.add(intPosition);
         rotorPanel.add(encrypt);
         rotorPanel.add(decrypt);
-
+        
+        /*
         JPanel inputPanel = new JPanel(new BorderLayout());
-        inputPanel.add(new JLabel("Input"), BorderLayout.NORTH);
+        inputPanel.add(new JLabel("Input     "), BorderLayout.WEST);
+        inputPanel.add(input, BorderLayout.CENTER);
 
         JPanel outputPanel = new JPanel(new BorderLayout());
-        outputPanel.add(new JLabel("Output"), BorderLayout.NORTH);
+        outputPanel.add(new JLabel("Output  "), BorderLayout.WEST);
+        outputPanel.add(output, BorderLayout.CENTER);
+        */
+
+               
+        
+
+       
+        JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel inputLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        inputLabelPanel.add(new JLabel("Input   "));
+        JPanel inputTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        inputTextPanel.add(input);
+        inputPanel.setLayout(new BorderLayout());
+        inputPanel.add(inputLabelPanel, BorderLayout.WEST);
+        inputPanel.add(inputTextPanel, BorderLayout.CENTER);
+
+        JPanel outputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel outputLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        outputLabelPanel.add(new JLabel("Output"));
+        JPanel outputTextPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        outputTextPanel.add(output);
+        outputPanel.setLayout(new BorderLayout());
+        outputPanel.add(outputLabelPanel, BorderLayout.WEST);
+        outputPanel.add(outputTextPanel, BorderLayout.CENTER);
+        
+    
 
         EnigmaActionListener a = new EnigmaActionListener();
 
         encrypt.addActionListener(a); 
         decrypt.addActionListener(a);
 
-        this.add(rotorPanel);
-        this.add(inputPanel);
-        this.add(outputPanel);
+        this.setLayout(new BorderLayout());
+        this.add(rotorPanel, BorderLayout.NORTH);
+        this.add(inputPanel, BorderLayout.CENTER);
+        this.add(outputPanel, BorderLayout.SOUTH);
+        
+
+        // this.add(rotorPanel);
+        // this.add(inputPanel);
+        // this.add(outputPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         
@@ -96,10 +132,12 @@ public class EnigmaFrame extends JFrame {
         }
     }
 
+    /*
     public static void main(String[] args) {
         EnigmaFrame j = new EnigmaFrame();
         j.setVisible(true);
     }
+    */
     
 
 }
